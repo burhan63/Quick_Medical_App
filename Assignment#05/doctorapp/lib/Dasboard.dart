@@ -215,121 +215,27 @@ class _DashboardViewState extends State<DashboardView> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
-            SingleChildScrollView(
+            SizedBox(
+              height: screenheight * 0.5 * 0.5,
+              width: screenwidth * 2 * 0.5,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 250,
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 5,
-                        ),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 4,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-                            child: const Column(
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .start, // Aligns text to the left
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25.0),
-                                    topRight: Radius.circular(25.0),
-                                    bottomLeft: Radius.circular(25.0),
-                                    bottomRight: Radius.circular(25.0),
-                                  ),
-                                  child: Image(
-                                    image: AssetImage(
-                                        'assets/images/pills_bottle_mockup.jpg'),
-                                    height: 120,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Accu-Check Active',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: 'Arial',
-                                          fontWeight: FontWeight.w100,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // SizedBox(height: 5),
-                                      Text(
-                                        'Test Strip',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: 'Arial',
-                                          fontWeight: FontWeight.w100,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // SizedBox(height: 5),
-                                      Text(
-                                        'Rs.112',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Arial',
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        // mainAxisAlignment:
-                                        //     MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            size: 15,
-                                            color: Colors.yellow,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            size: 15,
-                                            color: Colors.yellow,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            size: 15,
-                                            color: Colors.yellow,
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.9,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
+                  ),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return const ProductCard();
+                  },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -394,6 +300,100 @@ class _DashboardViewState extends State<DashboardView> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ProductCard extends StatelessWidget {
+  const ProductCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.grey[200],
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/pills_bottle_mockup.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            // Product title
+            const Text(
+              'Accu-check Active',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+            // Product subtitle
+            const Text(
+              'Test Strip',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 4),
+            // Product price
+            const Text(
+              'Rs.112',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+            // const Spacer(),
+            // Star and rating at the bottom
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      '2',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
